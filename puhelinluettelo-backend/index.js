@@ -1,7 +1,10 @@
 const express = require('express')
 const app = express()
-
 app.use(express.json())
+app.use(express.static('build'))
+
+const cors = require('cors')
+app.use(cors())
 
 const morgan = require('morgan')
 
@@ -56,13 +59,17 @@ app.post('/api/persons', (req, res) => {
         res.status(400).json({ error: 'Number is required' })
     } else {
         persons.push({...body, id })
-        res.status(201).json(body)
+        res.status(201).json({...body, id })
     }
 })
 
 app.delete('/api/persons/:id', (req, res) => {
     persons = persons.filter(person => person.id !== Number(req.params.id))
     res.status(204).end()
+})
+
+app.get('/', (req, res) => {
+    res.sendFile(path.join(__dirname+'/build/index.html'))
 })
 
 const port = process.env.PORT || 3001
