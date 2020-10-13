@@ -84,6 +84,7 @@ app.delete('/api/persons/:id', (req, res, next) => {
 })
 
 app.get('/', (req, res) => {
+    // eslint-disable-next-line no-undef
     res.sendFile(path.join(__dirname+'/build/index.html'))
 })
 
@@ -112,6 +113,7 @@ const errorHandler = (error, req, res) => {
 
 app.use(errorHandler)
 
+// eslint-disable-next-line no-undef
 const port = process.env.PORT || 3001
 app.listen(port, () => {
     console.log(`Server running in port ${port}`)
